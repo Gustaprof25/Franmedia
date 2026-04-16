@@ -1,0 +1,288 @@
+/* ===================== */
+/* RESET & BASE */
+/* ===================== */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+}
+
+/* ===================== */
+/* NAVBAR */
+/* ===================== */
+.logo-navbar {
+  height: 100px;
+  width: auto;
+}
+
+/* ===================== */
+/* HOME / CARROSSEL */
+/* ===================== */
+#home img {
+  height: 90vh;
+  object-fit: cover;
+}
+
+.carousel-caption-custom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  width: 90%;
+}
+
+.carousel-caption-custom h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.carousel-caption-custom p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* overlay escuro */
+.carousel-item::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+/* ===================== */
+/* SOBRE */
+/* ===================== */
+#sobre {
+  background: #1f2937;
+  color: #fff;
+  padding: 40px 20px;
+}
+
+/* ===================== */
+/* SERVIÇOS */
+/* ===================== */
+#servicos {
+  background: #f8f9fb;
+}
+
+.titulo-script {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.5rem;
+}
+
+.servico-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.3s;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.servico-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.servico-content {
+  padding: 20px;
+}
+
+.servico-card h4 {
+  margin-bottom: 10px;
+}
+
+.servico-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+/* ===================== */
+/* PORTFÓLIO */
+/* ===================== */
+#portfolio {
+  background: #f8f9fb;
+}
+
+#portfolio h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.5rem;
+}
+
+/* card moderno */
+.portfolio-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+.portfolio-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: 0.4s;
+}
+
+/* overlay */
+.portfolio-card .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  color: #fff;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+/* hover */
+.portfolio-card:hover img {
+  transform: scale(1.08);
+}
+
+.portfolio-card:hover .overlay {
+  opacity: 1;
+}
+
+/* legado (caso ainda use) */
+.portfolio-item {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: 0.3s;
+}
+
+.portfolio-item:hover {
+  transform: scale(1.03);
+}
+
+.portfolio-item img {
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* ===================== */
+/* CONTATO */
+/* ===================== */
+#contato h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.5rem;
+}
+
+#contato form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+#contato input {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  transition: 0.3s;
+}
+
+#contato input:focus {
+  border-color: #25D366;
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+}
+
+#contato button {
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+#contato button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+/* ===================== */
+/* FOOTER */
+/* ===================== */
+footer a {
+  text-decoration: none;
+}
+
+.social-icons a {
+  color: #fff;
+  font-size: 22px;
+  margin: 0 10px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #25D366;
+  transform: scale(1.2);
+}
+
+/* ===================== */
+/* PÁGINA DE PROJETO */
+/* ===================== */
+.project-hero {
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
+  margin-top: 70px;
+}
+
+.project-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-hero::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+  z-index: 2;
+}
+
+.hero-overlay h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero-overlay p {
+  font-size: 1.2rem;
+}
+
+/* galeria */
+.gallery-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.gallery-img:hover {
+  transform: scale(1.05);
+}
