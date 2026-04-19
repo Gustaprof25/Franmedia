@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projeto</title>
+  <title>Franmedio</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="../css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Fav Icon -->
+<link rel="icon" href="img/favicon.png" type="image/png">
+<link rel="shortcut icon" href="../img/franmedio.png" type="image/png">
 </head>
 
 <body>
@@ -38,10 +41,10 @@
 </nav>
 <!-- HERO (IMAGEM GRANDE) -->
 <section class="project-hero">
-  <img src="../img/projeto1/wf-04.jpg">
+  <img src="../img/projeto1/IMG_0002.jpg">
   
   <div class="hero-overlay">
-    <h1>Ensaio Casal</h1>
+    <h1>Fran e Willian</h1>
     <p>Um registro leve, natural e cheio de emoção</p>
   </div>
 </section>
@@ -62,33 +65,7 @@
   </div>
 
   <!-- GALERIA -->
-  <div class="row g-3">
-
-    <div class="col-6 col-md-4">
-      <img src="../img/projeto1/wf-01.jpg" class="gallery-img">
-    </div>
-
-    <div class="col-6 col-md-4">
-      <img src="../img/projeto1/wf-01.jpg" class="gallery-img">
-    </div>
-
-    <div class="col-6 col-md-4">
-      <img src="../img/projeto1/wf-04.jpg" class="gallery-img">
-    </div>
-
-    <div class="col-6 col-md-4">
-      <img src="../img/projeto1/wf-03.jpg" class="gallery-img">
-    </div>
-
-    <div class="col-6 col-md-4">
-      <img src="../img/projeto1/wf-02.jpg" class="gallery-img">
-    </div>
-
-    <div class="col-6 col-md-4">
-      <img src="../img/projeto1/wf-01.jpg" class="gallery-img">
-    </div>
-
-  </div>
+<div id="galeria"></div>
 
 </section>
 <footer class="bg-dark text-white text-center p-4 mt-5">
@@ -108,5 +85,78 @@
     </a>
   </div>
 </footer>
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <span id="fechar">&times;</span>
+  <img id="lightbox-img">
+  <a id="download" download>Baixar</a>
+</div>
+
+<script>
+const galeria = document.getElementById("galeria");
+const pasta = "../img/projeto1/";
+
+let atual = 0;
+const max = 9999;
+const lote = 30;
+
+function carregarLote() {
+  let count = 0;
+
+  while (atual <= max && count < lote) {
+    let numero = atual.toString().padStart(4, '0');
+    let caminho = `${pasta}IMG_${numero}.jpg`;
+
+    let img = new Image();
+
+    img.onload = function () {
+      // wrapper (card)
+      let wrapper = document.createElement("div");
+      wrapper.className = "gallery-img";
+
+      img.loading = "lazy";
+
+      wrapper.appendChild(img);
+      galeria.appendChild(wrapper);
+    };
+
+    img.src = caminho;
+
+    atual++;
+    count++;
+  }
+
+  if (atual <= max) {
+    setTimeout(carregarLote, 200);
+  }
+}
+
+carregarLote();
+
+// LIGHTBOX
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const fechar = document.getElementById("fechar");
+const download = document.getElementById("download");
+
+// abrir imagem ao clicar
+document.addEventListener("click", function(e) {
+  if (e.target.tagName === "IMG" && e.target.closest("#galeria")) {
+    lightbox.style.display = "flex";
+    lightboxImg.src = e.target.src;
+    download.href = e.target.src;
+  }
+});
+
+// fechar
+fechar.onclick = () => lightbox.style.display = "none";
+
+// fechar clicando fora
+lightbox.onclick = (e) => {
+  if (e.target === lightbox) {
+    lightbox.style.display = "none";
+  }
+};
+</script>
 </body>
 </html>

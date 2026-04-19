@@ -286,3 +286,156 @@ footer a {
 .gallery-img:hover {
   transform: scale(1.05);
 }
+/* ===================== */
+/* GALERIA PROJETO (MASONRY) */
+/* ===================== */
+
+/* container */
+#galeria {
+  column-count: 3;
+  column-gap: 20px;
+  padding: 20px;
+}
+
+/* responsivo */
+@media (max-width: 992px) {
+  #galeria {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 576px) {
+  #galeria {
+    column-count: 1;
+  }
+}
+
+/* sobrescreve APENAS dentro da galeria */
+#galeria .gallery-img {
+  height: auto; /* remove altura fixa */
+  object-fit: initial;
+  margin-bottom: 20px;
+  break-inside: avoid;
+  background: none;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+/* imagem interna */
+#galeria .gallery-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+}
+
+/* LIGHTBOX FUNDO */
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+/* IMAGEM */
+#lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 8px;
+}
+
+/* BOTÃO FECHAR */
+#fechar {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* BOTÃO DOWNLOAD */
+#download {
+  margin-top: 20px;
+  background: #25D366;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+#download:hover {
+  background: #1ebe5d;
+}
+
+.project-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+/* LOADING FULLSCREEN */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 99999;
+}
+
+/* SPINNER */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #444;
+  border-top: 4px solid #25D366;
+  border-radius: 50%;
+  animation: girar 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loader-logo {
+  width: 120px;
+  margin-bottom: 15px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.4; transform: scale(0.95); }
+}
+
+.instagram-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.instagram-wrapper blockquote {
+  width: 100% !important;
+  max-width: 500px !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}

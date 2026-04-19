@@ -10,4 +10,7 @@ document.getElementById("formContato").addEventListener("submit", function(e) {
   let url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
 
   window.open(url, "_blank");
+
+
+
 });
