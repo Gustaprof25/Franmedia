@@ -96,9 +96,14 @@
 const galeria = document.getElementById("galeria");
 const pasta = "../img/projeto2/";
 
-let atual = 0;
-const max = 9999;
-const lote = 30;
+// 👉 COMEÇA NO NÚMERO REAL DAS SUAS IMAGENS
+let atual = 596;
+
+// 👉 LIMITE REAL (596 até 695 = 100 imagens)
+const max = 695;
+
+// 👉 QUANTAS CARREGAR POR VEZ
+const lote = 10;
 
 function carregarLote() {
   let count = 0;
@@ -110,7 +115,6 @@ function carregarLote() {
     let img = new Image();
 
     img.onload = function () {
-      // wrapper (card)
       let wrapper = document.createElement("div");
       wrapper.className = "gallery-img";
 
@@ -120,6 +124,10 @@ function carregarLote() {
       galeria.appendChild(wrapper);
     };
 
+    img.onerror = function () {
+      // ignora imagens que não existem (evita erro silencioso)
+    };
+
     img.src = caminho;
 
     atual++;
@@ -127,7 +135,7 @@ function carregarLote() {
   }
 
   if (atual <= max) {
-    setTimeout(carregarLote, 200);
+    setTimeout(carregarLote, 300); // mais seguro (era 200)
   }
 }
 

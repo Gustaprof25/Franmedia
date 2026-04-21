@@ -98,56 +98,17 @@
 
 <script>
 const galeria = document.getElementById("galeria");
-const loader = document.getElementById("loader");
-
 const pasta = "../img/projeto5/";
 
-let atual = 0;
-const max = 9999;
-const lote = 30;
+// 👉 COMEÇA NO NÚMERO REAL DAS SUAS IMAGENS
+let atual = 596;
 
-let imagensCarregadas = 0;
-let loaderEscondido = false;
+// 👉 LIMITE REAL (596 até 695 = 100 imagens)
+const max = 695;
 
-// função que adiciona imagem
-function adicionarImagem(src) {
-  const img = new Image();
+// 👉 QUANTAS CARREGAR POR VEZ
+const lote = 10;
 
-  img.onload = function () {
-    imagensCarregadas++;
-
-    let wrapper = document.createElement("div");
-    wrapper.className = "gallery-img";
-
-    img.loading = "lazy";
-
-    wrapper.appendChild(img);
-    galeria.appendChild(wrapper);
-
-    verificarCarregamento();
-  };
-
-  img.onerror = function () {
-    // ignora imagens que não existem
-  };
-
-  img.src = src;
-}
-
-// controle do loader
-function verificarCarregamento() {
-  if (!loaderEscondido && imagensCarregadas >= 10) {
-    loader.style.opacity = "0";
-
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 400);
-
-    loaderEscondido = true;
-  }
-}
-
-// loop em lotes
 function carregarLote() {
   let count = 0;
 
@@ -155,29 +116,42 @@ function carregarLote() {
     let numero = atual.toString().padStart(4, '0');
     let caminho = `${pasta}IMG_${numero}.jpg`;
 
-    adicionarImagem(caminho);
+    let img = new Image();
+
+    img.onload = function () {
+      let wrapper = document.createElement("div");
+      wrapper.className = "gallery-img";
+
+      img.loading = "lazy";
+
+      wrapper.appendChild(img);
+      galeria.appendChild(wrapper);
+    };
+
+    img.onerror = function () {
+      // ignora imagens que não existem (evita erro silencioso)
+    };
+
+    img.src = caminho;
 
     atual++;
     count++;
   }
 
   if (atual <= max) {
-    setTimeout(carregarLote, 200);
+    setTimeout(carregarLote, 300); // mais seguro (era 200)
   }
 }
 
-// iniciar
 carregarLote();
 
-
-// =====================
 // LIGHTBOX
-// =====================
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const fechar = document.getElementById("fechar");
 const download = document.getElementById("download");
 
+// abrir imagem ao clicar
 document.addEventListener("click", function(e) {
   if (e.target.tagName === "IMG" && e.target.closest("#galeria")) {
     lightbox.style.display = "flex";
@@ -186,8 +160,10 @@ document.addEventListener("click", function(e) {
   }
 });
 
+// fechar
 fechar.onclick = () => lightbox.style.display = "none";
 
+// fechar clicando fora
 lightbox.onclick = (e) => {
   if (e.target === lightbox) {
     lightbox.style.display = "none";
