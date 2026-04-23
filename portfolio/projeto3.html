@@ -1,177 +1,180 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Franmedio</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-      <!-- Fav Icon -->
-<link rel="icon" href="../img/favicon.png">
-<link rel="shortcut icon" href="../img/franmedio.png" type="image/png">
+  <!-- Fav Icon -->
+  <link rel="icon" href="../img/favicon.png">
+  <link rel="shortcut icon" href="../img/franmedio.png" type="image/png">
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    
-    <a class="navbar-brand" href="../index.html">
-      <img src="../img/franmedio.png" class="logo-navbar">
-    </a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
 
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <a class="navbar-brand" href="../index.html">
+        <img src="../img/franmedio.png" class="logo-navbar">
+      </a>
 
-    <div class="collapse navbar-collapse" id="menu">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="../index.html#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#sobre">Sobre</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#portfolio">Portfólio</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#contato">Contato</a></li>
-      </ul>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="../index.html#sobre">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="../index.html#portfolio">Portfólio</a></li>
+          <li class="nav-item"><a class="nav-link" href="../index.html#contato">Contato</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+  <!-- HERO (IMAGEM GRANDE) -->
+  <section class="project-hero">
+    <img id="hero-img">
+
+    <div class="hero-overlay">
+      <h1 id="titulo"></h1>
+      <p id="descricao"></p>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="container py-5">
+
+    <!-- BOTÃO VOLTAR -->
+    <a href="../index.html" class="btn btn-outline-dark mb-4">← Voltar</a>
+
+    <!-- DESCRIÇÃO -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Sobre o projeto</h2>
+      <p class="text-muted">
+        Este ensaio foi pensado para capturar a conexão e espontaneidade do casal,
+        valorizando a luz natural e os pequenos detalhes.
+      </p>
     </div>
 
+    <!-- GALERIA -->
+    <div id="galeria"></div>
+
+  </section>
+  <footer class="bg-dark text-white text-center p-4 mt-5">
+    <p>Siga-nos:</p>
+
+    <div class="social-icons">
+      <a href="https://www.instagram.com/mateusmagalhaes__/" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+
+      <a href="mailto:studiovisionfranmedio@gmail.com">
+        <i class="fas fa-envelope"></i>
+      </a>
+
+      <a href="https://wa.me/5563992093340?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20servi%C3%A7os."
+        target="_blank">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
+  </footer>
+  <!-- LIGHTBOX -->
+  <div id="lightbox">
+    <span id="fechar">&times;</span>
+    <img id="lightbox-img">
+    <a id="download" download>Baixar</a>
   </div>
-</nav>
-<!-- HERO (IMAGEM GRANDE) -->
-<section class="project-hero">
-<img id="hero-img">
 
-<div class="hero-overlay">
-  <h1 id="titulo"></h1>
-  <p id="descricao"></p>
-</div>
-</section>
+  <script>
+    const galeria = document.getElementById("galeria");
+    const lote = 10;
 
-<!-- CONTEÚDO -->
-<section class="container py-5">
+    let imagens = [];
+    let atual = 0;
 
-  <!-- BOTÃO VOLTAR -->
-  <a href="../index.html" class="btn btn-outline-dark mb-4">← Voltar</a>
+    // 👉 pega o nome do projeto pela URL
+    const params = new URLSearchParams(window.location.search);
+    const projeto = params.get("p");
 
-  <!-- DESCRIÇÃO -->
-  <div class="text-center mb-5">
-    <h2 class="fw-bold">Sobre o projeto</h2>
-    <p class="text-muted">
-      Este ensaio foi pensado para capturar a conexão e espontaneidade do casal,
-      valorizando a luz natural e os pequenos detalhes.
-    </p>
-  </div>
+    // 👉 pasta dinâmica (VERSÃO ANTIGA)
+    const pasta = `../img/${projeto}/`;
+    async function carregarProjetoInfo() {
+      const res = await fetch("../projetos.json");
+      const dados = await res.json();
 
-  <!-- GALERIA -->
-<div id="galeria"></div>
+      const info = dados[projeto];
 
-</section>
-<footer class="bg-dark text-white text-center p-4 mt-5">
-  <p>Siga-nos:</p>
+      if (!info) {
+        document.getElementById("titulo").innerText = "Projeto não encontrado";
+        return;
+      }
 
-  <div class="social-icons">
-    <a href="https://www.instagram.com/mateusmagalhaes__/" target="_blank">
-      <i class="fab fa-instagram"></i>
-    </a>
+      document.getElementById("titulo").innerText = info.titulo;
+      document.getElementById("descricao").innerText = info.descricao;
 
-    <a href="mailto:studiovisionfranmedio@gmail.com">
-      <i class="fas fa-envelope"></i>
-    </a>
+      // capa
+      document.getElementById("hero-img").src =
+        `../img/${projeto}/${info.capa}`;
+    }
 
-    <a href="https://wa.me/5563992093340?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20servi%C3%A7os." target="_blank">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-  </div>
-</footer>
-<!-- LIGHTBOX -->
-<div id="lightbox">
-  <span id="fechar">&times;</span>
-  <img id="lightbox-img">
-  <a id="download" download>Baixar</a>
-</div>
+    async function carregarImagens() {
+      try {
+        const res = await fetch(pasta + "imagens.json");
+        imagens = await res.json();
 
-<script>
-const galeria = document.getElementById("galeria");
-const lote = 10;
+        carregarLote();
+      } catch (e) {
+        console.error("Erro real:", e);
+        galeria.innerHTML = "<p>Erro ao carregar imagens</p>";
+      }
+    }
 
-let imagens = [];
-let atual = 0;
+    function carregarLote() {
+      let count = 0;
 
-// 👉 pega o nome do projeto pela URL
-const params = new URLSearchParams(window.location.search);
-const projeto = params.get("p");
+      while (atual < imagens.length && count < lote) {
+        let caminho = pasta + imagens[atual];
 
-// 👉 pasta dinâmica (VERSÃO ANTIGA)
-const pasta = `../img/${projeto}/`;
-async function carregarProjetoInfo() {
-const res = await fetch("../projetos.json");
-  const dados = await res.json();
+        let img = new Image();
 
-  const info = dados[projeto];
+        img.onload = function () {
+          let wrapper = document.createElement("div");
+          wrapper.className = "gallery-img";
 
-  if (!info) {
-    document.getElementById("titulo").innerText = "Projeto não encontrado";
-    return;
-  }
+          img.loading = "lazy";
 
-  document.getElementById("titulo").innerText = info.titulo;
-  document.getElementById("descricao").innerText = info.descricao;
+          wrapper.appendChild(img);
+          galeria.appendChild(wrapper);
+        };
 
-  // capa
-document.getElementById("hero-img").src =
-  `../img/${projeto}/${info.capa}`;
-}
+        img.src = caminho;
 
-async function carregarImagens() {
-  try {
-    const res = await fetch(pasta + "imagens.json");
-    imagens = await res.json();
+        atual++;
+        count++;
+      }
 
-    carregarLote();
-  } catch (e) {
-    console.error("Erro real:", e);
-    galeria.innerHTML = "<p>Erro ao carregar imagens</p>";
-  }
-}
+      if (atual < imagens.length) {
+        setTimeout(carregarLote, 300);
+      }
+    }
 
-function carregarLote() {
-  let count = 0;
+    if (!projeto) {
+      galeria.innerHTML = "<p>Projeto não especificado</p>";
+      throw new Error("Parâmetro ?p= não informado");
+    }
 
-  while (atual < imagens.length && count < lote) {
-    let caminho = pasta + imagens[atual];
-
-    let img = new Image();
-
-    img.onload = function () {
-      let wrapper = document.createElement("div");
-      wrapper.className = "gallery-img";
-
-      img.loading = "lazy";
-
-      wrapper.appendChild(img);
-      galeria.appendChild(wrapper);
-    };
-
-    img.src = caminho;
-
-    atual++;
-    count++;
-  }
-
-  if (atual < imagens.length) {
-    setTimeout(carregarLote, 300);
-  }
-}
-
-if (!projeto) {
-  galeria.innerHTML = "<p>Projeto não especificado</p>";
-  throw new Error("Parâmetro ?p= não informado");
-}
-
-carregarProjetoInfo();
-carregarImagens();
-</script>
+    carregarProjetoInfo();
+    carregarImagens();
+  </script>
 </body>
+
 </html>
