@@ -12,7 +12,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
       <!-- Fav Icon -->
-<link rel="icon" href="img/favicon.png" type="image/png">
+<link rel="icon" href="../img/favicon.png">
 <link rel="shortcut icon" href="../img/franmedio.png" type="image/png">
 </head>
 
@@ -41,12 +41,12 @@
 </nav>
 <!-- HERO (IMAGEM GRANDE) -->
 <section class="project-hero">
-  <img src="../img/projeto3/IMG_0542.jpg">
-  
-  <div class="hero-overlay">
-    <h1>Isa</h1>
-    <p>Um registro leve, natural e cheio de emoção</p>
-  </div>
+<img id="hero-img">
+
+<div class="hero-overlay">
+  <h1 id="titulo"></h1>
+  <p id="descricao"></p>
+</div>
 </section>
 
 <!-- CONTEÚDO -->
@@ -94,23 +94,53 @@
 
 <script>
 const galeria = document.getElementById("galeria");
-const pasta = "../img/projeto3/";
+const lote = 10;
 
-// 👉 COMEÇA NO NÚMERO REAL DAS SUAS IMAGENS
+let imagens = [];
 let atual = 0;
 
-// 👉 LIMITE REAL (596 até 695 = 100 imagens)
-const max = 100;
+// 👉 pega o nome do projeto pela URL
+const params = new URLSearchParams(window.location.search);
+const projeto = params.get("p");
 
-// 👉 QUANTAS CARREGAR POR VEZ
-const lote = 10;
+// 👉 pasta dinâmica (VERSÃO ANTIGA)
+const pasta = `/img/${projeto}/`;
+
+async function carregarProjetoInfo() {
+  const res = await fetch("/projetos.json"); // CAMINHO ANTIGO
+  const dados = await res.json();
+
+  const info = dados[projeto];
+
+  if (!info) {
+    document.getElementById("titulo").innerText = "Projeto não encontrado";
+    return;
+  }
+
+  document.getElementById("titulo").innerText = info.titulo;
+  document.getElementById("descricao").innerText = info.descricao;
+
+  // capa
+  document.getElementById("hero-img").src = `/img/${projeto}/${info.capa}`;
+}
+
+async function carregarImagens() {
+  try {
+    const res = await fetch(pasta + "imagens.json");
+    imagens = await res.json();
+
+    carregarLote();
+  } catch (e) {
+    console.error("Erro real:", e);
+    galeria.innerHTML = "<p>Erro ao carregar imagens</p>";
+  }
+}
 
 function carregarLote() {
   let count = 0;
 
-  while (atual <= max && count < lote) {
-    let numero = atual.toString().padStart(4, '0');
-    let caminho = `${pasta}IMG_${numero}.jpg`;
+  while (atual < imagens.length && count < lote) {
+    let caminho = pasta + imagens[atual];
 
     let img = new Image();
 
@@ -124,47 +154,24 @@ function carregarLote() {
       galeria.appendChild(wrapper);
     };
 
-    img.onerror = function () {
-      // ignora imagens que não existem (evita erro silencioso)
-    };
-
     img.src = caminho;
 
     atual++;
     count++;
   }
 
-  if (atual <= max) {
-    setTimeout(carregarLote, 300); // mais seguro (era 200)
+  if (atual < imagens.length) {
+    setTimeout(carregarLote, 300);
   }
 }
 
-carregarLote();
+if (!projeto) {
+  galeria.innerHTML = "<p>Projeto não especificado</p>";
+  throw new Error("Parâmetro ?p= não informado");
+}
 
-// LIGHTBOX
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const fechar = document.getElementById("fechar");
-const download = document.getElementById("download");
-
-// abrir imagem ao clicar
-document.addEventListener("click", function(e) {
-  if (e.target.tagName === "IMG" && e.target.closest("#galeria")) {
-    lightbox.style.display = "flex";
-    lightboxImg.src = e.target.src;
-    download.href = e.target.src;
-  }
-});
-
-// fechar
-fechar.onclick = () => lightbox.style.display = "none";
-
-// fechar clicando fora
-lightbox.onclick = (e) => {
-  if (e.target === lightbox) {
-    lightbox.style.display = "none";
-  }
-};
+carregarProjetoInfo();
+carregarImagens();
 </script>
 </body>
 </html>
