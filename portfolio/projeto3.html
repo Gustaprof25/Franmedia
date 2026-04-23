@@ -104,10 +104,9 @@ const params = new URLSearchParams(window.location.search);
 const projeto = params.get("p");
 
 // 👉 pasta dinâmica (VERSÃO ANTIGA)
-const pasta = `/img/${projeto}/`;
-
+const pasta = `../img/${projeto}/`;
 async function carregarProjetoInfo() {
-  const res = await fetch("/projetos.json"); // CAMINHO ANTIGO
+const res = await fetch("../projetos.json");
   const dados = await res.json();
 
   const info = dados[projeto];
@@ -121,7 +120,8 @@ async function carregarProjetoInfo() {
   document.getElementById("descricao").innerText = info.descricao;
 
   // capa
-  document.getElementById("hero-img").src = `/img/${projeto}/${info.capa}`;
+document.getElementById("hero-img").src =
+  `../img/${projeto}/${info.capa}`;
 }
 
 async function carregarImagens() {
