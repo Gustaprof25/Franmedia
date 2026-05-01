@@ -439,3 +439,68 @@ footer a {
   border-radius: 12px !important;
   overflow: hidden;
 }
+
+/* REMOVE aparência de card */
+.card-3d {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+  transform-style: preserve-3d;
+}
+
+/* IMAGEM FLUTUANDO */
+.card-3d img {
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+
+  /* INVERTER */
+  transform: scaleX(-1) translateZ(60px);
+
+  /* SOMBRA REALISTA */
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.4));
+}
+
+/* TEXTO LIMPO */
+.servico-content {
+  background: transparent;
+  padding: 15px 10px;
+  text-align: center;
+
+  transform: translateZ(40px);
+}
+
+/* TÍTULO */
+.servico-content h4 {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* TEXTO */
+.servico-content p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* CAIXA DA IMAGEM */
+.img-box {
+  height: 180px; /* altura fixa igual pra todos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* IMAGEM */
+.img-box img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+
+  /* INVERTIDA + 3D */
+  transform: scaleX(-1) translateZ(60px);
+
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.4));
+}
