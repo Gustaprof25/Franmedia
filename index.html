@@ -169,71 +169,174 @@
 </section>
 
 <!-- PORTIFOLIO -->
-<section id="portfolio" class="py-5">
+<!-- PORTFÓLIO -->
+<section id="portfolio" class="portfolio-section py-5">
   <div class="container">
-    <h2 class="text-center mb-5">Portfólio</h2>
 
-    <div class="row g-3">
+    <!-- Título -->
+    <div class="text-center mb-5">
+      <h2 class="portfolio-title">Portfólio</h2>
+      <p class="portfolio-subtitle">
+        Confira alguns dos nossos trabalhos mais recentes
+      </p>
+    </div>
 
-      <div class="col-6 col-md-4">
-        <a href="portfolio/projeto3.html?p=projeto1" class="portfolio-card">
-          <img src="img/wf-01.jpg">
-          <div class="overlay">
-            <h5>Willian e Franciele</h5>
-            <p>Ensaio Fotografico</p>
+    <!-- Categorias -->
+    <div class="portfolio-filters d-flex flex-wrap justify-content-center gap-3 mb-5">
+
+      <button class="filter-btn active" data-filter="all">
+        Todos
+      </button>
+
+      <button class="filter-btn" data-filter="casamento">
+        Casamentos
+      </button>
+
+      <button class="filter-btn" data-filter="ensaio">
+        Ensaios Fotográficos
+      </button>
+
+      <button class="filter-btn" data-filter="evento">
+        Eventos
+      </button>
+
+    </div>
+
+    <!-- GRID -->
+    <div class="row g-4">
+
+      <!-- ITEM -->
+      <div class="col-md-4 portfolio-item" data-category="ensaio">
+        <a href="portfolio/projeto3.html?p=projeto1" class="portfolio-modern-card">
+
+          <div class="portfolio-image">
+            <img src="img/wf-01.jpg" alt="">
           </div>
+
+          <div class="portfolio-content">
+            <h4>Willian e Franciele</h4>
+            <p>Ensaio Fotográfico</p>
+
+            <span>
+              Ver Projeto
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </div>
+
         </a>
       </div>
 
-      <div class="col-6 col-md-4">
-        <a href="portfolio/projeto3.html?p=projeto2"class="portfolio-card">
-          <img src="img/projeto2/IMG_7093.jpg">
-          <div class="overlay">
-            <h5>Bia e Italo</h5>
+      <!-- ITEM -->
+      <div class="col-md-4 portfolio-item" data-category="casamento">
+        <a href="portfolio/projeto3.html?p=projeto2" class="portfolio-modern-card">
+
+          <div class="portfolio-image">
+            <img src="img/projeto2/IMG_7093.jpg" alt="">
+          </div>
+
+          <div class="portfolio-content">
+            <h4>Bia e Italo</h4>
+            <p>Pedido de Casamento</p>
+
+            <span>
+              Ver Projeto
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </div>
+
+        </a>
+      </div>
+
+      <!-- ITEM -->
+      <div class="col-md-4 portfolio-item" data-category="ensaio">
+        <a href="portfolio/projeto3.html?p=projeto3" class="portfolio-modern-card">
+
+          <div class="portfolio-image">
+            <img src="img/projeto3/IMG_0596.jpg" alt="">
+          </div>
+
+          <div class="portfolio-content">
+            <h4>Isa</h4>
+            <p>Ensaio Fotográfico</p>
+
+            <span>
+              Ver Projeto
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </div>
+
+        </a>
+      </div>
+
+      <!-- ITEM -->
+      <div class="col-md-4 portfolio-item" data-category="ensaio">
+        <a href="portfolio/projeto3.html?p=projeto4" class="portfolio-modern-card">
+
+          <div class="portfolio-image">
+            <img src="img/projeto4/IMG_0253.jpg" alt="">
+          </div>
+
+          <div class="portfolio-content">
+            <h4>Rayssa</h4>
+            <p>Fotografia Comercial</p>
+
+            <span>
+              Ver Projeto
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </div>
+
+        </a>
+      </div>
+
+      <!-- ITEM -->
+      <div class="col-md-4 portfolio-item" data-category="casamento">
+        <a href="portfolio/projeto3.html?p=projeto5" class="portfolio-modern-card">
+
+          <div class="portfolio-image">
+            <img src="img/projeto5/IMG_3391.jpg" alt="">
+          </div>
+
+          <div class="portfolio-content">
+            <h4>Marcos e Akila</h4>
+            <p>Pré Wedding</p>
+
+            <span>
+              Ver Projeto
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </div>
+
+        </a>
+      </div>
+
+      <!-- ITEM -->
+      <div class="col-md-4 portfolio-item" data-category="casamento">
+        <a href="portfolio/projeto3.html?p=projeto6" class="portfolio-modern-card">
+
+          <div class="portfolio-image video-thumb">
+
+            <img src="img/projeto6/IMG_2825.jpg" alt="">
+
+            <!-- <div class="play-button">
+              <i class="fa-solid fa-play"></i>
+            </div> -->
+
+          </div>
+
+          <div class="portfolio-content">
+            <h4>Carlos e Linda</h4>
             <p>Casamento</p>
+
+            <span>
+              Ver Projeto
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
           </div>
+
         </a>
       </div>
 
-      <div class="col-6 col-md-4">
-        <a href="portfolio/projeto3.html?p=projeto3"class="portfolio-card">
-          <img src="img/projeto3/IMG_0596.jpg">
-          <div class="overlay">
-            <h5>Isa</h5>
-            <p>Ensaio Fotografico</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-6 col-md-4">
-        <a href="portfolio/projeto3.html?p=projeto4" class="portfolio-card">
-          <img src="img/projeto4/IMG_0253.jpg">
-          <div class="overlay">
-            <h5>Rayssa</h5>
-            <p>Fotografia comercial</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-6 col-md-4">
-        <a href="portfolio/projeto3.html?p=projeto5" class="portfolio-card">
-          <img src="img/projeto5/IMG_3391.jpg">
-          <div class="overlay">
-            <h5>Marcos e Akila</h5>
-            <p>Ensaio Fotografico</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-6 col-md-4">
-        <a href="portfolio/projeto3.html?p=projeto6" class="portfolio-card">
-          <img src="img/projeto6/IMG_2825.jpg">
-          <div class="overlay">
-            <h5>Carlos e Linda</h5>
-            <p>Ensaio Fotografico</p>
-          </div>
-        </a>
-      </div>
     </div>
   </div>
 </section>

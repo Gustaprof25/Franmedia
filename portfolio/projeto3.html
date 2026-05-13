@@ -150,7 +150,19 @@
           let wrapper = document.createElement("div");
           wrapper.className = "gallery-img";
 
-          img.loading = "lazy";
+          // destaque médio
+          if (
+            atual === 1 ||
+            atual === 6 ||
+            atual === 12
+          ) {
+            wrapper.classList.add("destaque");
+          }
+
+          // super destaque
+          if (atual === 3) {
+            wrapper.classList.add("destaque-xl");
+          }
 
           wrapper.appendChild(img);
           galeria.appendChild(wrapper);
