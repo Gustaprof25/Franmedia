@@ -94,99 +94,189 @@
     <a id="download" download>Baixar</a>
   </div>
 
-  <script>
-    const galeria = document.getElementById("galeria");
-    const lote = 10;
+<script>
 
-    let imagens = [];
-    let atual = 0;
+  const galeria = document.getElementById("galeria");
+  const lote = 10;
 
-    // 👉 pega o nome do projeto pela URL
-    const params = new URLSearchParams(window.location.search);
-    const projeto = params.get("p");
+  let imagens = [];
+  let atual = 0;
 
-    // 👉 pasta dinâmica (VERSÃO ANTIGA)
-    const pasta = `../img/${projeto}/`;
-    async function carregarProjetoInfo() {
-      const res = await fetch("../projetos.json");
-      const dados = await res.json();
+  // LIGHTBOX
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const fechar = document.getElementById("fechar");
+  const download = document.getElementById("download");
 
-      const info = dados[projeto];
+  // URL
+  const params = new URLSearchParams(window.location.search);
+  const projeto = params.get("p");
 
-      if (!info) {
-        document.getElementById("titulo").innerText = "Projeto não encontrado";
-        return;
-      }
+  // pasta dinâmica
+  const pasta = `../img/${projeto}/`;
 
-      document.getElementById("titulo").innerText = info.titulo;
-      document.getElementById("descricao").innerText = info.descricao;
+  async function carregarProjetoInfo() {
 
-      // capa
-      document.getElementById("hero-img").src =
-        `../img/${projeto}/${info.capa}`;
+    const res = await fetch("../projetos.json");
+    const dados = await res.json();
+
+    const info = dados[projeto];
+
+    if (!info) {
+
+      document.getElementById("titulo").innerText =
+        "Projeto não encontrado";
+
+      return;
+
     }
 
-    async function carregarImagens() {
-      try {
-        const res = await fetch(pasta + "imagens.json");
-        imagens = await res.json();
+    document.getElementById("titulo").innerText = info.titulo;
+    document.getElementById("descricao").innerText = info.descricao;
 
-        carregarLote();
-      } catch (e) {
-        console.error("Erro real:", e);
-        galeria.innerHTML = "<p>Erro ao carregar imagens</p>";
-      }
+    // CAPA HERO
+    document.getElementById("hero-img").src =
+      `../img/${projeto}/${info.capa}`;
+
+  }
+
+  async function carregarImagens() {
+
+    try {
+
+      const res = await fetch(pasta + "imagens.json");
+
+      imagens = await res.json();
+
+      carregarLote();
+
+    } catch (e) {
+
+      console.error("Erro real:", e);
+
+      galeria.innerHTML =
+        "<p>Erro ao carregar imagens</p>";
+
     }
 
-    function carregarLote() {
-      let count = 0;
+  }
 
-      while (atual < imagens.length && count < lote) {
-        let caminho = pasta + imagens[atual];
+  function carregarLote() {
 
-        let img = new Image();
+    let count = 0;
 
-        img.onload = function () {
-          let wrapper = document.createElement("div");
-          wrapper.className = "gallery-img";
+    while (atual < imagens.length && count < lote) {
 
-          // destaque médio
-          if (
-            atual === 1 ||
-            atual === 6 ||
-            atual === 12
-          ) {
-            wrapper.classList.add("destaque");
-          }
+      let caminho = pasta + imagens[atual];
 
-          // super destaque
-          if (atual === 3) {
-            wrapper.classList.add("destaque-xl");
-          }
+      let indiceAtual = atual;
 
-          wrapper.appendChild(img);
-          galeria.appendChild(wrapper);
-        };
+      let img = new Image();
 
+      img.onload = function () {
+
+        let wrapper = document.createElement("div");
+
+        wrapper.className = "gallery-img";
+
+        // DESTAQUES
+        if (
+          indiceAtual === 1 ||
+          indiceAtual === 6 ||
+          indiceAtual === 12
+        ) {
+
+          wrapper.classList.add("destaque");
+
+        }
+
+        // SUPER DESTAQUE
+        if (indiceAtual === 3) {
+
+          wrapper.classList.add("destaque-xl");
+
+        }
+
+        // IMAGEM
         img.src = caminho;
 
-        atual++;
-        count++;
-      }
+        // ABRIR LIGHTBOX
+        img.addEventListener("click", () => {
 
-      if (atual < imagens.length) {
-        setTimeout(carregarLote, 300);
-      }
+          lightbox.style.display = "flex";
+
+          lightboxImg.src = caminho;
+
+          download.href = caminho;
+
+        });
+
+        wrapper.appendChild(img);
+
+        galeria.appendChild(wrapper);
+
+      };
+
+      img.src = caminho;
+
+      atual++;
+      count++;
+
     }
 
-    if (!projeto) {
-      galeria.innerHTML = "<p>Projeto não especificado</p>";
-      throw new Error("Parâmetro ?p= não informado");
+    // LOAD INFINITO
+    if (atual < imagens.length) {
+
+      setTimeout(carregarLote, 300);
+
     }
 
-    carregarProjetoInfo();
-    carregarImagens();
-  </script>
+  }
+
+  // FECHAR LIGHTBOX
+  fechar.addEventListener("click", () => {
+
+    lightbox.style.display = "none";
+
+  });
+
+  // FECHAR CLICANDO FORA
+  lightbox.addEventListener("click", (e) => {
+
+    if (e.target === lightbox) {
+
+      lightbox.style.display = "none";
+
+    }
+
+  });
+
+  // ESC FECHA
+  document.addEventListener("keydown", (e) => {
+
+    if (e.key === "Escape") {
+
+      lightbox.style.display = "none";
+
+    }
+
+  });
+
+  // VALIDAÇÃO
+  if (!projeto) {
+
+    galeria.innerHTML =
+      "<p>Projeto não especificado</p>";
+
+    throw new Error("Parâmetro ?p= não informado");
+
+  }
+
+  carregarProjetoInfo();
+
+  carregarImagens();
+
+</script>
 </body>
 
 </html>
