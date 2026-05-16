@@ -523,6 +523,137 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
   <script async src="//www.instagram.com/embed.js"></script>
+  <script>
+
+  const galeria = document.getElementById("galeria");
+  const lote = 10;
+
+  let imagens = [];
+  let atual = 0;
+
+  // LIGHTBOX
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const fechar = document.getElementById("fechar");
+  const download = document.getElementById("download");
+
+  const params = new URLSearchParams(window.location.search);
+  const projeto = params.get("p");
+
+  const pasta = `../img/${projeto}/`;
+
+  async function carregarProjetoInfo() {
+    const res = await fetch("../projetos.json");
+    const dados = await res.json();
+
+    const info = dados[projeto];
+
+    if (!info) {
+      document.getElementById("titulo").innerText = "Projeto não encontrado";
+      return;
+    }
+
+    document.getElementById("titulo").innerText = info.titulo;
+    document.getElementById("descricao").innerText = info.descricao;
+
+    document.getElementById("hero-img").src =
+      `../img/${projeto}/${info.capa}`;
+  }
+
+  async function carregarImagens() {
+    try {
+
+      const res = await fetch(pasta + "imagens.json");
+      imagens = await res.json();
+
+      carregarLote();
+
+    } catch (e) {
+
+      console.error("Erro real:", e);
+      galeria.innerHTML = "<p>Erro ao carregar imagens</p>";
+
+    }
+  }
+
+  function carregarLote() {
+
+    let count = 0;
+
+    while (atual < imagens.length && count < lote) {
+
+      let caminho = pasta + imagens[atual];
+
+      let img = new Image();
+
+      img.onload = function () {
+
+        let wrapper = document.createElement("div");
+        wrapper.className = "gallery-img";
+
+        // DESTAQUES
+        if (atual === 1 || atual === 6 || atual === 12) {
+          wrapper.classList.add("destaque");
+        }
+
+        if (atual === 3) {
+          wrapper.classList.add("destaque-xl");
+        }
+
+        // CLIQUE ABRE LIGHTBOX
+        img.addEventListener("click", () => {
+
+          lightbox.style.display = "flex";
+
+          lightboxImg.src = caminho;
+
+          download.href = caminho;
+
+        });
+
+        wrapper.appendChild(img);
+
+        galeria.appendChild(wrapper);
+
+      };
+
+      img.src = caminho;
+
+      atual++;
+      count++;
+    }
+
+    if (atual < imagens.length) {
+      setTimeout(carregarLote, 300);
+    }
+  }
+
+  // FECHAR LIGHTBOX
+  fechar.addEventListener("click", () => {
+    lightbox.style.display = "none";
+  });
+
+  // FECHAR CLICANDO FORA
+  lightbox.addEventListener("click", (e) => {
+
+    if (e.target === lightbox) {
+      lightbox.style.display = "none";
+    }
+
+  });
+
+  if (!projeto) {
+
+    galeria.innerHTML = "<p>Projeto não especificado</p>";
+
+    throw new Error("Parâmetro ?p= não informado");
+
+  }
+
+  carregarProjetoInfo();
+  carregarImagens();
+
+</script>
 </body>
 
 </html>
