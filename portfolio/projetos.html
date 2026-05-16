@@ -167,9 +167,9 @@
 
     while (atual < imagens.length && count < lote) {
 
-      let caminho = pasta + imagens[atual];
+      let index = atual;
 
-      let indiceAtual = atual;
+      let caminho = pasta + imagens[index];
 
       let img = new Image();
 
@@ -179,26 +179,19 @@
 
         wrapper.className = "gallery-img";
 
-        // DESTAQUES
+        // destaque vertical
         if (
-          indiceAtual === 1 ||
-          indiceAtual === 6 ||
-          indiceAtual === 12
+          index === 1 ||
+          index === 6 ||
+          index === 12
         ) {
-
           wrapper.classList.add("destaque");
-
         }
 
-        // SUPER DESTAQUE
-        if (indiceAtual === 3) {
-
+        // destaque gigante
+        if (index === 3) {
           wrapper.classList.add("destaque-xl");
-
         }
-
-        // IMAGEM
-        img.src = caminho;
 
         // ABRIR LIGHTBOX
         img.addEventListener("click", () => {
