@@ -9,7 +9,7 @@ document.getElementById("formContato").addEventListener("submit", function (e) {
   let dataFormatada = new Date(data).toLocaleDateString("pt-BR");
 
   let mensagem = `Olá, meu nome é ${nome} e meu email é ${email}, meu evento é um ${tipo} e será no dia ${dataFormatada} e gostaria de um orçamento!`;
-  let telefone = "5563992093340";
+  let telefone = "5563984243599";
 
   let url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
 
@@ -56,3 +56,63 @@ filterButtons.forEach(button => {
   });
 
 });
+
+const cards =
+document.querySelectorAll('.coverflow-card');
+
+let current = 0;
+
+function updateCoverflow(){
+
+    cards.forEach(card=>{
+        card.className =
+        'coverflow-card hidden';
+    });
+
+    cards[current].className =
+    'coverflow-card active';
+
+    cards[
+      (current - 1 + cards.length)
+      % cards.length
+    ].className =
+    'coverflow-card left';
+
+    cards[
+      (current + 1)
+      % cards.length
+    ].className =
+    'coverflow-card right';
+}
+
+function nextCard(){
+
+    current++;
+
+    if(current >= cards.length)
+        current = 0;
+
+    updateCoverflow();
+}
+
+function prevCard(){
+
+    current--;
+
+    if(current < 0)
+        current = cards.length - 1;
+
+    updateCoverflow();
+}
+
+document
+.querySelector('.next')
+.addEventListener('click',nextCard);
+
+document
+.querySelector('.prev')
+.addEventListener('click',prevCard);
+
+setInterval(nextCard,5000);
+
+updateCoverflow();
